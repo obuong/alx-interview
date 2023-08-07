@@ -2,17 +2,21 @@
 """ N queens """
 import sys
 
-def print_usage_and_exit():
+
+if len(sys.argv) > 2 or len(sys.argv) < 2:
     print("Usage: nqueens N")
     exit(1)
 
-def print_n_must_be_number_and_exit():
+if not sys.argv[1].isdigit():
     print("N must be a number")
     exit(1)
 
-def print_n_must_be_at_least_4_and_exit():
+if int(sys.argv[1]) < 4:
     print("N must be at least 4")
     exit(1)
+
+n = int(sys.argv[1])
+
 
 def queens(n, i=0, a=[], b=[], c=[]):
     """ find possible positions """
@@ -22,6 +26,7 @@ def queens(n, i=0, a=[], b=[], c=[]):
                 yield from queens(n, i + 1, a + [j], b + [i + j], c + [i - j])
     else:
         yield a
+
 
 def solve(n):
     """ solve """
@@ -35,16 +40,5 @@ def solve(n):
         k = []
         i = 0
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print_usage_and_exit()
 
-    if not sys.argv[1].isdigit():
-        print_n_must_be_number_and_exit()
-
-    n = int(sys.argv[1])
-
-    if n < 4:
-        print_n_must_be_at_least_4_and_exit()
-
-    solve(n)
+solve(n)
